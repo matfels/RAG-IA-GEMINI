@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 from typing import Literal, List, Dict
 from chamada_llm import chamadallm
-from langchain_core.messages import SystemMessage, HumanMessage
+from langchain_core.messages import SystemMessage, HumanMessage #Separando a mensagem do sistema e do humano
 
 
 
@@ -26,11 +26,14 @@ def triagem_do_prompt():
 
 
 
-#Criação da real triagem do Gemini (Define na programação como será respondido "em listas")
+#Criação da real triagem do Gemini, limitando a saida do agente. (Define na programação que tera uma saida estruturada. "em listas")
 class TriagemOut(BaseModel):
   decision: Literal["AUTO_RESOLVER", "PEDIR_INFO", "ABRIR_CHAMADO"]
   urgency: Literal["BAIXA", "MEDIA", "ALTA"]
   missing_fields: List[str] = Field(default_factory=list)
+
+
+
 
 
 
@@ -39,9 +42,7 @@ class TriagemOut(BaseModel):
 llm_triagem = chamadallm() #llm
 TRIAGEM_PROMPT = triagem_do_prompt() #triagem
 
-
 triagem_chain = llm_triagem.with_structured_output(TriagemOut)
-
 def triagem(mensagem: str) -> Dict:
   saida: TriagemOut = triagem_chain.invoke([
     SystemMessage(content=TRIAGEM_PROMPT),
@@ -49,3 +50,31 @@ def triagem(mensagem: str) -> Dict:
   ])
 
   return saida.model_dump()  
+
+
+
+
+
+
+
+
+#======================== TESTE ==============================
+
+if __name__ == "__main__":
+    
+  testes = ["Posso reembolsar a internet?",
+            "Quero mais 5 dias de trabalho remoto. Como faço?",
+            "Posso reembolsar o curso ou trienamento da Alura?",
+            "Quantas capivaras tem no Rio Pinheiros?"]
+
+  for n in testes:
+      print(' ')
+      resposta = triagem(n)
+      print(f"PERGUNTA: {n}")
+      print(f"RESPOSTA: {resposta}")
+      #if resposta["contexto_encontrado"]:
+      #    print("CITAÇÕES")
+      #    print(resposta['citações'])
+      print(' ')
+      print("-------------------------------==================================-------------------------------")
+      
