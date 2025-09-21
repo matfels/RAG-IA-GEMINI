@@ -28,9 +28,9 @@ def triagem_do_prompt():
 
 #Criação da real triagem do Gemini, limitando a saida do agente. (Define na programação que tera uma saida estruturada. "em listas")
 class TriagemOut(BaseModel):
-  decision: Literal["AUTO_RESOLVER", "PEDIR_INFO", "ABRIR_CHAMADO"]
-  urgency: Literal["BAIXA", "MEDIA", "ALTA"]
-  missing_fields: List[str] = Field(default_factory=list)
+  decisao: Literal["AUTO_RESOLVER", "PEDIR_INFO", "ABRIR_CHAMADO"]
+  urgencia: Literal["BAIXA", "MEDIA", "ALTA"]
+  campos_faltantes: List[str] = Field(default_factory=list)
 
 
 
@@ -43,6 +43,8 @@ llm_triagem = chamadallm() #llm
 TRIAGEM_PROMPT = triagem_do_prompt() #triagem
 
 triagem_chain = llm_triagem.with_structured_output(TriagemOut)
+
+
 def triagem(mensagem: str) -> Dict:
   saida: TriagemOut = triagem_chain.invoke([
     SystemMessage(content=TRIAGEM_PROMPT),

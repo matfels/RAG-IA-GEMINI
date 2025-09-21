@@ -30,7 +30,6 @@ def formatar_citacoes(docs_rel: List, query: str) -> List[Dict]:
 
 
 
-
 # Aqui e chamado o rag, chamando essa função passando o texto/pergunta, será respondido com o que foi ensinado para a IA
 def perguntar_politica_RAG(pergunta: str) -> Dict:
   
