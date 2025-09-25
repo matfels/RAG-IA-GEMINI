@@ -1,7 +1,7 @@
 import streamlit as st
 from rag import perguntar_politica_RAG
 
-st.write("# ChatBot com IA") # Formato makdown "é editavel". #Titulo
+st.write("# Agente IA ") # Formato makdown "é editavel". #Titulo
 mensagem_usuario = st.chat_input("Escreva sua mensagem aqui") # Input do usuário 
 
 # Session_State = Memoria do site, ele funciona como um Dicionário Python.
