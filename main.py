@@ -1,5 +1,6 @@
 import streamlit as st
-from rag import perguntar_politica_RAG
+#from rag import perguntar_politica_RAG
+from import_pdf_splitter_embedding import perguntar_politica_RAG
 
 st.write("# Agente IA ") # Formato makdown "é editavel". #Titulo
 mensagem_usuario = st.chat_input("Escreva sua mensagem aqui") # Input do usuário 
@@ -31,3 +32,6 @@ if mensagem_usuario:
     mensagem_IA = {"role": "assistant", "content": respostaIA['answer']}
     st.session_state["lista_mensagem"].append(mensagem_IA)
 
+
+
+# para fazer rodar # streamlit run RAG/main.py ou streamlit run main.py   no terminal
