@@ -6,7 +6,7 @@ chave_api = api_chave()
 def chamadallm():
     gemini_flash = ChatGoogleGenerativeAI(
         model = "gemini-2.5-flash",
-        temperature=0.0,
+        temperature=0.5,
         api_key= chave_api
     )
     return gemini_flash
