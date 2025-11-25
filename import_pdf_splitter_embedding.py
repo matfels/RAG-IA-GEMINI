@@ -72,7 +72,7 @@ def prompt():
     ("system",
     "Você é um Assistente de Políticas Internas (RH/IT) da empresa Matheus Desenvolvimento. "
     "Responda SOMENTE com base no contexto fornecido. "
-    "Se não houver base suficiente, responda apenas 'Não sei'."),
+    "Se não houver base suficiente, responda apenas 'Não tenho esta informação'."),
     ("human", "Pergunta: {input}\n\nContexto:\n{context}")
     ])
     return prompt_rag
@@ -129,16 +129,17 @@ def perguntar_politica_RAG(pergunta: str) -> Dict:
   docs_relacionados = retriever.invoke(pergunta)
 
   if not docs_relacionados:
-    return {"answer": "Não sei.", "citacoes": [], "contexto_encontrado": False}
+    return {"answer": "Não posso responder sobre este assunto.", "citacoes": [], "contexto_encontrado": False}
 
   answer = document_chain.invoke({"input": pergunta, "context": docs_relacionados})
 
   txt = (answer or "").strip()
 
-  if txt.rstrip(".!?") == "Não sei":
-    return {"answer": "Não sei.", "citacoes": [], "contexto_encontrado": False}
+  if txt.rstrip(".!?") == "Não posso responder sobre este assunto":
+    return {"answer": "Não posso responder sobre este assunto.", "citacoes": [], "contexto_encontrado": False}
 
   return {"answer": txt, "citacoes": formatar_citacoes(docs_relacionados, pergunta), "contexto_encontrado": True}
+
 
 
 
