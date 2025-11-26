@@ -56,7 +56,7 @@ with col2:
         - Política de Uso de E-mail e Segurança da Informação
   
                 
-    **2. Envie e aguarde:**
+    **2. Envie e receba a sua resposta:**
     - Pressione Enter para enviar sua pergunta. O agente de IA processará a informação e fornecerá uma resposta baseada nos documentos de política.
     """)
     st.write("---")
