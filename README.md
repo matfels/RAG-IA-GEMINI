@@ -51,4 +51,4 @@ O sistema integra o **Google Gemini** para geração de respostas e embeddings, 
 ### Teste do projeto
 
 Projeto funcionando:
-   https://conversor-de-pdf-gznaedwrwscwqsxl2flmse.streamlit.app/
+   https://rag-ia-gemini-89zuk65jf5drafnit3ycbm.streamlit.app/
